@@ -49,7 +49,7 @@ describe('Revenue Calculation', () => {
     // Expected NPM: ((10000 - 6000) / 10000) * 100 = 40
     expect(netProfitMargin).toBe(40);
 
-    // Work
+    // Work Captial Ratio
     const workingCapitalRatio = calculateWorkingCapitalRatio(mockData);
 
     // Assets:

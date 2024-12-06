@@ -36,7 +36,7 @@ export const calculateGrossProfitMargin = (data: AccountData[]): number => {
   
   // Sum up the total_value of filtered data for sales and debit
   const totalSalesDebit = salesDebitData.reduce((total, item) => total + item.total_value, 0);
-
+  
   const revenue = calculateRevenue(data);
 
   const grossProfitMargin = (totalSalesDebit / revenue) * 100;
@@ -49,16 +49,15 @@ export const calculateGrossProfitMargin = (data: AccountData[]): number => {
 export const calculateNetProfitMargin  = (data: AccountData[]): number => {
   const expense = calculateExpenses(data);
   const revenue = calculateRevenue(data);
+
   const netProfit = revenue - expense;
 
   if (revenue === 0) return 0; 
 
-  const grossProfitMargin = (netProfit / revenue) * 100;
+  const netProfitMargin = (netProfit / revenue) * 100;
 
-  return grossProfitMargin;
+  return netProfitMargin;
 };
-
-
 
 
 // 5. Function to calculate Working Capital Ratio
@@ -76,6 +75,7 @@ export const calculateWorkingCapitalRatio = (data: AccountData[]): number => {
   const assets = assetsDebit.reduce((total, item) => total + item.total_value, 0) - 
                  assetsCredit.reduce((total, item) => total + item.total_value, 0);
 
+
   // Calculate Liabilities
   const liabilitiesDebit = data.filter(item => 
     item.account_category === 'liability' && item.value_type === 'debit' && 
@@ -88,10 +88,11 @@ export const calculateWorkingCapitalRatio = (data: AccountData[]): number => {
 
   const liabilities = liabilitiesCredit.reduce((total, item) => total + item.total_value, 0) - 
                       liabilitiesDebit.reduce((total, item) => total + item.total_value, 0);
+                 
 
-  // Avoid division by zero
   if (liabilities === 0) return 0;
 
-  // Return Working Capital Ratio
   return assets / liabilities;
 };
+
+
